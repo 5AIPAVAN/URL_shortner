@@ -29,7 +29,7 @@ const Header = () => {
 
             <div>
                 {
-                    true ? <DropdownMenu>
+                    user ? <DropdownMenu>
                         <DropdownMenuTrigger>
                             <Avatar>
                                 <AvatarImage src="dp_img.png" />
