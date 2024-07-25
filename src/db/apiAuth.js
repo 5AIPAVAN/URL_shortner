@@ -21,7 +21,8 @@ export async function login({email,password}){
         const {data,error} = await supabase.auth.signUp({
             email,
             password,
-            options:{ // you can give what ever you want
+            options:{ // all these things comes under user metadata
+                      // you can give whatever you want(details about user) inmetadata
             data:{  
                 name,
                 profile_pic:`${supabaseUrl}/storage/v1/object/public/profile_pic/${fileName}`
@@ -43,4 +44,9 @@ export async function getCurrentUser(){
     if(error) throw new Error(error.message);
 
     return session.session?.user;
+}
+
+export async function logout(){
+    const {error} = await supabase.auth.signOut();
+    if(error) throw new Error(error.message);
 }

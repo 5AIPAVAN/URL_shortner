@@ -47,7 +47,7 @@ const Login = () => {
     useEffect(()=>{
       console.log(data);
       if(error === null && data){
-       navigate(`/dashboard?/${longLink ? `createNew=${longLink}`:""}`)
+       navigate(`/dashboard/${longLink ? `createNew=${longLink}`:""}`)
        fetchUser();
       }
 
@@ -112,7 +112,7 @@ const Login = () => {
     <CardFooter>
       <Button onClick={handleLogin}>
         {
-            true ? <BeatLoader size={10} color='green'/> : "Login"
+            loading ? <BeatLoader size={10} color='green'/> : "Login"
         }
       </Button>
     </CardFooter>
