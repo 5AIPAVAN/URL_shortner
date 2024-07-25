@@ -9,7 +9,7 @@ const Auth = () => {
   // useful to access variables(ex:- createNew) in url
   const [searchParams] = useSearchParams();
   return (
-    <div className='mt-36 flex flex-col items-center gap-10'>
+    <div className='mt-20 flex flex-col items-center gap-10'>
       <h1 className=' text-5xl font-extrabold'>
         {
           searchParams.get("createNew") ? "Hold On ! Just Login First ..." : "Login / SignUp"

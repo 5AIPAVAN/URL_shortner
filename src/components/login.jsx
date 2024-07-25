@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Card,
     CardContent,
@@ -12,6 +12,8 @@ import { Button } from './ui/button'
 import { BeatLoader } from 'react-spinners'
 import Error from './error'
 import * as Yup from 'yup';
+import useFetch from '@/hooks/use-fetch'
+import { login } from '@/db/apiAuth'
 
 const Login = () => {
 
@@ -32,6 +34,16 @@ const Login = () => {
       }))
     }
 
+    const {data,error,loading,fn:fn_login} = useFetch(login,formData)
+
+    useEffect(()=>{
+      console.log(data);
+      // if(error == null && data){
+       
+      // }
+
+    },[data,error])
+
     const handleLogin = async ()=>{
         setErrors([]);
         try{
@@ -44,26 +56,21 @@ const Login = () => {
                  .min(6,"Password must be atleast 6 characters")
                  .required("password is required")
             })
-
+            // abortEarly helps to throw the first error as soon as it encoundered one.
             await schema.validate(formData,{abortEarly:false});
-            
+            fn_login();           
         }catch(e){
-
             const newErrors = {};
-
             e?.inner?.forEach((err)=>{
                 newErrors[err.path] = err.message;
             });
-
             setErrors(newErrors);
-
             console.log(errors);
 
         }
-
-      
-
     }
+
+    
 
   return (
     <Card>
@@ -71,7 +78,7 @@ const Login = () => {
       <CardTitle>Login</CardTitle>
       <CardDescription>Please enter your details here to login</CardDescription>
     </CardHeader>
-    <Error message={'some error in login form'}/>
+    {error && <Error message={error.message}/>}
     <CardContent className='space-y-2'>
 
       <div className="space-y-1">
