@@ -2,10 +2,10 @@
 import { useState } from "react";
 
 const useFetch = (cb, options = {}) => {
-
-    const [data, setData] = useState("");
-    const [loading, setLoading] = useState("");
-    const [error, setError] = useState("");
+ 
+    const [data, setData] = useState(null); // big outage happened because of using "" here hahahaha
+    const [loading, setLoading] = useState(null);
+    const [error, setError] = useState(null);
 
     const fn = async (...args) => {
         setLoading(true);

@@ -1,20 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BarLoader } from 'react-spinners'
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Filter } from 'lucide-react'
+
+import useFetch from '@/hooks/use-fetch'
+import { getUrls } from '@/db/apiUrls'
+import { getClicksForUrls } from '@/db/apiClicks'
+import Error from '@/components/error'
+import { UrlState } from '@/context'
+
+
 
 const Dashboard = () => {
+
+  const [searchQuery,setSearchQuery] = useState("");
+
+  const {user} = UrlState();
+
+  if(user){
+    console.log('user',user);
+  }
+  const {loading, error, data: urls, fn: fnUrls} = useFetch(getUrls, user.id);
+
+  useEffect(()=>{
+    fnUrls();
+  },[user]);
+
+
+  if(urls){
+    console.log('urls',urls)
+  }
+
+  const {
+    loading: loadingClicks,
+    data: clicks,
+    fn: fnClicks,
+  } = useFetch(
+    getClicksForUrls,
+    urls?.map((url) => url.id)
+  );
+  
+  useEffect(()=>{
+  if(urls?.length){
+    fnClicks();
+  }
+  },[urls?.length])
+
+
+  const filteredUrls = urls?.filter((url)=>{
+    url.title.toLowerCase().includes(searchQuery.toLowerCase());
+  })
+  
+
+
   return (
     <div className='flex flex-col gap-8'>
-      {true && <BarLoader width={"100%"} color='green' />}
+      {(loading) && <BarLoader width={"100%"} color='green' />}
 
       <div className='grid grid-cols-2 gap-4'>
 
@@ -23,7 +71,7 @@ const Dashboard = () => {
             <CardTitle>Links Created</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>0</p>
+            <p>{urls?.length}</p>
           </CardContent>
         </Card>
 
@@ -32,7 +80,7 @@ const Dashboard = () => {
             <CardTitle>Total Clicks</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>5</p>
+            <p>{clicks?.length}</p>
           </CardContent>
         </Card>
 
@@ -44,10 +92,14 @@ const Dashboard = () => {
       </div>
 
       <div className="relative">
-       <Input type='text' placeholder='Search For Your Links'/>
+       <Input type='text'
+       placeholder='Search For Your Links'
+       value={searchQuery}
+       onChange={(e)=>setSearchQuery(e.target.value)}/>
+       <Filter className='absolute top-2 right-2 p-1'/>
       </div>
 
-
+     {error && <Error message={error.message}/>}
 
 
     </div>
@@ -55,3 +107,5 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
+
