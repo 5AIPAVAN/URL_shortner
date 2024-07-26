@@ -51,7 +51,7 @@ const Header = () => {
                         <DropdownMenuContent>
                             <DropdownMenuLabel>5AIPAVAN</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className='flex gap-2'><LinkIcon className='h-4 w-4'/>My Links</DropdownMenuItem>
+                            <DropdownMenuItem className='flex gap-2'><Link to='/dashboard' className='flex gap-2'><LinkIcon className='h-4 w-4'/>My Links</Link></DropdownMenuItem>
                             <DropdownMenuItem className=' flex gap-2 text-red-600'><LogOut className='h-4 w-4'
                            />
                             <span  onClick={() => {fnLogout().then(()=>{
