@@ -1,5 +1,6 @@
+import { UrlState } from '@/context';
 import React,{useEffect} from 'react'
-import { UrlState } from '@/context'
+
 import { useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 

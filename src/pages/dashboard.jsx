@@ -10,11 +10,17 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Filter } from 'lucide-react'
 
-import useFetch from '@/hooks/use-fetch'
+
 import { getUrls } from '@/db/apiUrls'
 import { getClicksForUrls } from '@/db/apiClicks'
 import Error from '@/components/error'
 import { UrlState } from '@/context'
+import useFetch from '@/hooks/use-fetch'
+import LinkCard from '@/components/link-card'
+
+
+
+
 
 
 
@@ -31,7 +37,7 @@ const Dashboard = () => {
 
   useEffect(()=>{
     fnUrls();
-  },[user]);
+  },[]);
 
 
   if(urls){
@@ -46,6 +52,15 @@ const Dashboard = () => {
     getClicksForUrls,
     urls?.map((url) => url.id)
   );
+
+  const filteredUrls = urls?.filter((url)=>
+    url.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  if(filteredUrls){
+    console.log('filtereddd',filteredUrls);
+  }
+  
   
   useEffect(()=>{
   if(urls?.length){
@@ -54,15 +69,13 @@ const Dashboard = () => {
   },[urls?.length])
 
 
-  const filteredUrls = urls?.filter((url)=>{
-    url.title.toLowerCase().includes(searchQuery.toLowerCase());
-  })
-  
+
+
 
 
   return (
     <div className='flex flex-col gap-8'>
-      {(loading) && <BarLoader width={"100%"} color='green' />}
+      {(loading || loadingClicks) && <BarLoader width={"100%"} color='green' />}
 
       <div className='grid grid-cols-2 gap-4'>
 
@@ -100,8 +113,10 @@ const Dashboard = () => {
       </div>
 
      {error && <Error message={error.message}/>}
-
-
+     {(filteredUrls || []).map((url, i) =>
+      (
+        <LinkCard key={i} url={url} fetchUrls={fnUrls} />
+      ))}
     </div>
   )
 }
