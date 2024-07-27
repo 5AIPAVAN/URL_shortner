@@ -1,6 +1,6 @@
 import Error from "@/components/error";
 import supabase,{supabaseUrl} from "./supabase";
-import { UAParser } from "ua-parser-js";
+
 
 export async function getUrls(user_id){
     let {data,error} = await supabase
@@ -76,32 +76,20 @@ export async function getLongUrl(id){
     return data;
 }
 
-// to get device information -> we are going to use UAParser
 
-const parser = new UAParser();
-export const storeClicks = async({id,originalUrl})=>{
-
-    try{
-        const res = parser.getResult();
-        const device = res.type || "desktop";
-
-        const response =  await fetch("https://ipapi.co/json");
-         const{city,country_name : country} = await response.json();
-
-         await supabase.from("clicks").insert({
-            url_id:id,
-            city:city,
-            country:country,
-            device:device,
-         });
-
-         window.location.href = originalUrl;
-
-    }catch(error){
-
-        console.error('Error while storing clicks',error);
+export async function getUrl({id,user_id}){  // user_id is necessary so we can compare -> the logged in user is owner or not
+    const {data,error} = await supabase
+    .from("urls")  // from table name
+    .select("*")   // what you want to select
+    .eq("id",id)  // where it matched with user_id
+    .eq("user_id",user_id)  // where it matched with user_id
+    .single();
+    if(error) {
+        console.error(error);
+        throw new Error("Unable to get details of  url");
     }
-
+   
+    return data;
 }
 
 
