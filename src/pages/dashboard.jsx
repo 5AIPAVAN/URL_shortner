@@ -17,6 +17,7 @@ import Error from '@/components/error'
 import { UrlState } from '@/context'
 import useFetch from '@/hooks/use-fetch'
 import LinkCard from '@/components/link-card'
+import CreateLink from '@/components/create-link'
 
 
 
@@ -101,7 +102,7 @@ const Dashboard = () => {
 
       <div className="flex justify-between">
         <div className="text-4xl font-extrabold">My Links</div>
-        <Button>Create Link</Button>
+       <CreateLink/>
       </div>
 
       <div className="relative">
