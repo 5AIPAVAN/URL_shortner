@@ -46,7 +46,7 @@ export async function getClicksForUrl(url_id){  // user_id is necessary so we ca
     .from("clicks")  // from table name
     .select("*")   // what you want to select
     .eq("url_id",url_id)  // where it matched with url_id
-    .single();
+    
     if(error) {
         console.error(error);
         throw new Error("Unable to get Click details of url");
