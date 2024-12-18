@@ -92,9 +92,9 @@ const Link = () => {
             {url?.title}
           </span>
 
-          <a href={`https://trimrr.in/${link}`} target='_blank'
+          <a href={`http://localhost:5173/${link}`} target='_blank'
             className='text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer'>
-            https://trimr.in/{link}
+            http://localhost:5173/{link}
           </a>
 
           <a href={url?.original_url} target='_blank'
