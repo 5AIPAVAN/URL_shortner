@@ -29,6 +29,7 @@ const Header = () => {
 
     const {loading,fn:fnLogout} = useFetch(logout);
 
+    console.log("check : "+user?.user_metadata?.profile_pic);
 
     return (
         <>
@@ -44,12 +45,12 @@ const Header = () => {
                         <DropdownMenuTrigger>
                             <Avatar>
                                 <AvatarImage src={user?.user_metadata?.profile_pic} />
-                                <AvatarFallback>{user?.user_metadata?.name}</AvatarFallback>
+                                <AvatarFallback>Hi</AvatarFallback>
                             </Avatar>
 
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuLabel>5AIPAVAN</DropdownMenuLabel>
+                            <DropdownMenuLabel> {user?.user_metadata?.name}</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className='flex gap-2'><Link to='/dashboard' className='flex gap-2'><LinkIcon className='h-4 w-4'/>My Links</Link></DropdownMenuItem>
                             <DropdownMenuItem className=' flex gap-2 text-red-600'><LogOut className='h-4 w-4'

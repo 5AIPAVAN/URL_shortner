@@ -32,7 +32,10 @@ export const storeClicks = async({id,originalUrl})=>{
             device:device,
          });
 
-         window.location.href = originalUrl;
+         console.log("inserted...");
+         console.log(originalUrl);
+         console.log('check longurl once');
+         window.location.href = originalUrl; // redirect to original link
 
     }catch(error){
 
