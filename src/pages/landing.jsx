@@ -38,12 +38,12 @@ lg:text-7xl: Further overrides the text size to 7xl for screen sizes that are lg
 
       <form onSubmit={handleShorten} className='sm:h-14 gap-4 flex flex-col sm:flex-row w-full md:w-2/4 '>
       {/* type must be url here -> it validates wheather it is url or not */}
-      <Input type="url" 
+      {/* <Input type="url" 
        value = {longUrl}
        placeholder="Enter your URL here"
        className=' h-full flex-1 py-4 px-4 '
-       onChange={(e)=>setLongUrl(e.target.value)} />
-      <Button className='h-full bg-green-600 text-white hover:bg-orange-600 hover:text-white' type='submit' >Shorten</Button>
+       onChange={(e)=>setLongUrl(e.target.value)} /> */}
+      <Button className='h-full bg-green-600 text-white hover:bg-orange-600 hover:text-white' type='submit' >Let's Begin Shortening</Button>
       </form>
 
       <div>

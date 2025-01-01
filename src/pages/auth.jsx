@@ -34,7 +34,7 @@ const Auth = () => {
         }
       </h1>
 
-      <Tabs defaultValue="account" className="w-[400px]">
+      <Tabs defaultValue="login" className="w-[400px]">
         {/* one col for login and one col for signup */}
   <TabsList className='w-full grid grid-cols-2'>
     <TabsTrigger value="login">Login</TabsTrigger>
